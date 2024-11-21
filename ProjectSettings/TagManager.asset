@@ -6,6 +6,27 @@ TagManager:
   tags:
   - FxTemporaire
   - Target
+  - QDSUISharedThemeColor
+  - QDSUISection
+  - QDSUIIcon
+  - QDSUIToggleButton
+  - QDSUITextSecondaryColor
+  - QDSUITooltip
+  - QDSUITextInputField
+  - QDSUIToggleSwitch
+  - QDSUIAccentColor
+  - QDSUIToggleCheckboxRadio
+  - QDSUISecondaryButton
+  - QDSUIDestructiveButton
+  - QDSUIToggleBorderlessButton
+  - QDSUIPrimaryButton
+  - QDSUIBorderlessButton
+  - Locomotion
+  - PassThrough
+  - PassThroughButton
+  - LocoButton
+  - LocoText
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -13,7 +34,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Post Processing
   - 
   - 
   - 
