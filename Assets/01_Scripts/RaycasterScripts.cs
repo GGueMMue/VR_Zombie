@@ -8,6 +8,7 @@ public class RaycasterScripts : MonoBehaviour
 
     public GameObject muzzleEffect;
     public TextMeshProUGUI ammoText;
+    public GameObject bulletEffect;
 
     public int bulletCnt;
 
@@ -23,8 +24,9 @@ public class RaycasterScripts : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch) && bulletCnt > 0)
         {
             Debug.Log("Ray 발사");
-            muzzleEffect.GetComponent<ParticleSystem>().Play();
-            //bulletCnt--;
+            Instantiate(muzzleEffect, this.transform.position, this.transform.rotation);
+
+            bulletCnt--;
             ammoText.text = bulletCnt.ToString();
             //Ray ray;
             RaycastHit hit;
@@ -37,7 +39,21 @@ public class RaycasterScripts : MonoBehaviour
                 {
                     hit.collider.gameObject.GetComponent<EnemyFSMNavMesh>().Damaged();
                 }
+                else
+                {
+                    Quaternion rotation = Quaternion.LookRotation(-hit.normal); // hit의 콜라이더 방향 벡터를 정규화 한 값에 -를 넣어 뒤를 보게 함
+                    Instantiate(bulletEffect, hit.point, rotation); // 맞은 위치에 해당 값을 넣음
+                    
+                }
             }
         }
+    }
+
+    public IEnumerator Reroading()
+    {
+        yield return new WaitForSeconds(1f);
+        bulletCnt = 7;
+
+        yield return null;
     }
 }

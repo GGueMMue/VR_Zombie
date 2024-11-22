@@ -22,12 +22,12 @@ public class EnemyFSMNavMesh : MonoBehaviour
     public Animator enemyAnim;
     public Transform target;
 
-    public float speed = 2f;
+    public float speed = 5f;
     public float rotationSpeed = 10f;
-    public float attackRange = 2.5f;
+    public float attackRange = 3.5f;
     public float attackStateMaxTime = 1f;
 
-    public CharacterController enemyCharacterController;
+    public CapsuleCollider enemyCharacterController;
     //public PlayerState playerState;
     public GameObject explosionEffect;
 
@@ -42,7 +42,7 @@ public class EnemyFSMNavMesh : MonoBehaviour
     {
         enemyState = ENEMYSTATE.IDLE;
         target = GameObject.FindWithTag("Player").transform;
-        enemyCharacterController = GetComponent<CharacterController>();
+        enemyCharacterController = GetComponent<CapsuleCollider>();
         enemyAnim = GetComponentInChildren<Animator>();
         //playerState = target.GetComponent<PlayerState>();
         nvAgent = GetComponent<NavMeshAgent>();
@@ -86,6 +86,8 @@ public class EnemyFSMNavMesh : MonoBehaviour
                 else
                 {
                     nvAgent.SetDestination(target.position);
+                    Debug.Log(nvAgent.destination);
+
                 }
                 break;
             case ENEMYSTATE.ATTACK:
@@ -99,7 +101,7 @@ public class EnemyFSMNavMesh : MonoBehaviour
                     stateTime = 0;
                     //Debug.Log("#### ATTACK ####");
                     //AudioManager.Instance().PlaySfx(attackSfx);
-                    //target.GetComponent<PlayerState>().DamageByEnemy();
+                    target.GetComponent<PlayerState>().DamageByEnemy();
                 }
 
                 float dist = Vector3.Distance(target.position, transform.position);
@@ -126,10 +128,10 @@ public class EnemyFSMNavMesh : MonoBehaviour
                 //Debug.Log("#### DEAD ####");
                 //enemyAnim.SetInteger("ENEMYSTATE", (int)enemyState);
                 //AudioManager.Instance().PlaySfx(deadSfx);
-                enemyAnim.SetTrigger("DEAD");
-                Instantiate(explosionEffect, transform.position, transform.rotation);
-                Destroy(gameObject, 3f);
-                //StartCoroutine(DeadProcess(3f));
+                
+                //Instantiate(explosionEffect, transform.position, transform.rotation);
+                //Destroy(gameObject, 3f);
+                StartCoroutine(DeadProcess(3f));
                 //enemyState = ENEMYSTATE.NONE;
                 //enemyCharacterController.enabled = false;
                 //nvAgent.enabled = false;
@@ -142,6 +144,8 @@ public class EnemyFSMNavMesh : MonoBehaviour
 
     IEnumerator DeadProcess(float t)
     {
+        enemyAnim.SetTrigger("DEAD");
+
         yield return new WaitForSeconds(t);
         while (transform.position.y > -t)
         {
@@ -150,9 +154,9 @@ public class EnemyFSMNavMesh : MonoBehaviour
             transform.position = temp;
             yield return new WaitForEndOfFrame();
         }
-        //Destroy(gameObject);
-        InitEnemy();
-        gameObject.SetActive(false);
+        Destroy(gameObject);
+        //InitEnemy();
+        //gameObject.SetActive(false);
     }
 
     void InitEnemy()

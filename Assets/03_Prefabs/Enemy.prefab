@@ -144,8 +144,8 @@ GameObject:
   - component: {fileID: 4869280171940080625}
   - component: {fileID: 7206547989640147065}
   - component: {fileID: 564842985437802565}
-  - component: {fileID: 2219923401076541477}
   - component: {fileID: 2584422302650404011}
+  - component: {fileID: 3749720780640468998}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -231,32 +231,6 @@ MonoBehaviour:
   hp: 5
   attackSfx: {fileID: 0}
   deadSfx: {fileID: 0}
---- !u!143 &2219923401076541477
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 725033192575091365}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 1.9
-  m_Radius: 0.3
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.95, z: 0}
 --- !u!195 &2584422302650404011
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -279,6 +253,29 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &3749720780640468998
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725033192575091365}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.31
+  m_Height: 1.75
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.92, z: 0}
 --- !u!1 &802506715626373222
 GameObject:
   m_ObjectHideFlags: 0
