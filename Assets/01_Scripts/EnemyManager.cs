@@ -12,11 +12,11 @@ public class EnemyManager : MonoBehaviour
     public float spawnTime = 2f;
     int spawnCnt = 1;
     public int maxSpawnCnt = 10;
-    //public PlayerState playerState;
+    public PlayerState playerState;
 
     void Start()
     {
-        //playerState = GameObject.Find("Player").GetComponent<PlayerState>();
+        playerState = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerState>();
         //enemyPool = new GameObject[poolSize];
         //for (int i = 0; i < poolSize; ++i)
         //{
@@ -27,11 +27,11 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
-        //if (playerState.isDead)
-        //    return;
+        if (playerState.isDead)
+            return;
 
-        //if (spawnCnt > maxSpawnCnt)
-        //    return;          
+        if (spawnCnt > maxSpawnCnt)
+            return;          
 
         curTime += Time.deltaTime;
 
@@ -42,6 +42,7 @@ public class EnemyManager : MonoBehaviour
             float x = Random.Range(-10f, 10f);
             GameObject enemy = Instantiate(enemyPrefab, new Vector3(x, 0, this.transform.position.z), Quaternion.identity);
             // 골때림, -> 임마 생성 후 포지션 값 변경하면 안 먹힘. NavMesh Agent 이슈로 예상 됨. 
+
             //enemy.transform.position = new Vector3(x, 0, 20f);
             //Debug.Log(enemy.transform.position);
             enemy.name = "ENEMY_" + spawnCnt;

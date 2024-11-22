@@ -17,10 +17,11 @@ public class EnemyFSMNavMesh : MonoBehaviour
 
     public ENEMYSTATE enemyState;
 
-    public float stateTime;
-    public float idleStateTime;
+    public float stateTime = 0;
+    public float idleStateTime = 2;
     public Animator enemyAnim;
     public Transform target;
+    bool isdead = false;
 
     public float speed = 5f;
     public float rotationSpeed = 10f;
@@ -28,12 +29,12 @@ public class EnemyFSMNavMesh : MonoBehaviour
     public float attackStateMaxTime = 1f;
 
     public CapsuleCollider enemyCharacterController;
-    //public PlayerState playerState;
+    public PlayerState playerState;
     public GameObject explosionEffect;
 
     public NavMeshAgent nvAgent;
 
-    public int hp = 5;
+    public int hp = 2;
     public AudioClip attackSfx;
     public AudioClip deadSfx;
 
@@ -44,17 +45,18 @@ public class EnemyFSMNavMesh : MonoBehaviour
         target = GameObject.FindWithTag("Player").transform;
         enemyCharacterController = GetComponent<CapsuleCollider>();
         enemyAnim = GetComponentInChildren<Animator>();
-        //playerState = target.GetComponent<PlayerState>();
+        playerState = target.GetComponent<PlayerState>();
         nvAgent = GetComponent<NavMeshAgent>();
     }
 
     void Update()
     {
-        //if (playerState.isDead)
-        //{
-        //    enemyAnim.enabled = false;
-        //    return;
-        //}
+        if (playerState.isDead)
+        {
+            enemyAnim.enabled = false;
+            return;
+        }
+        else stateTime += Time.deltaTime;
 
         switch (enemyState)
         {
@@ -65,7 +67,6 @@ public class EnemyFSMNavMesh : MonoBehaviour
                 //Debug.Log("#### IDLE ####");
                 enemyAnim.SetInteger("ENEMYSTATE", (int)enemyState);
                 nvAgent.speed = 0;
-                stateTime += Time.deltaTime;
                 if (stateTime > idleStateTime)
                 {
                     stateTime = 0;
@@ -94,7 +95,6 @@ public class EnemyFSMNavMesh : MonoBehaviour
                 //Debug.Log("#### ATTACK ####");
                 enemyAnim.SetInteger("ENEMYSTATE", (int)enemyState);
                 nvAgent.speed = 0;
-                stateTime += Time.deltaTime;
                 if (stateTime > attackStateMaxTime)
                 {
                     // 플레이어 공격!!!!!!!!!!!!!!!!!!!
@@ -115,8 +115,8 @@ public class EnemyFSMNavMesh : MonoBehaviour
                 //Debug.Log("#### DAMAGE ####");
                 enemyAnim.SetInteger("ENEMYSTATE", (int)enemyState);
                 nvAgent.speed = 0;
-                //Debug.Log("현재 체력 :::: " + hp);
-                stateTime += Time.deltaTime;
+                //Debug.Log("현재 체력 :::: " + hp);                
+                
                 if (stateTime > 1.042f)
                 {
                     stateTime = 0;
@@ -144,7 +144,10 @@ public class EnemyFSMNavMesh : MonoBehaviour
 
     IEnumerator DeadProcess(float t)
     {
-        enemyAnim.SetTrigger("DEAD");
+        if(isdead == false)
+            enemyAnim.SetTrigger("DEAD");
+
+        isdead = true;
 
         yield return new WaitForSeconds(t);
         while (transform.position.y > -t)
