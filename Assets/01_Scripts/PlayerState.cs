@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,7 +15,7 @@ public class PlayerState : MonoBehaviour
     public GameObject hurtEffect;
 
     public Slider hpBar;
-    public Text scoreText;
+    public TextMeshProUGUI scoreText;
 
     void Start()
     {
@@ -25,18 +26,18 @@ public class PlayerState : MonoBehaviour
     {
         if (isDead == false)
         {
-            //hpBar.value = (float)hp / 5;
+            hpBar.value = (float)hp / 5;
         }
         else
         {
-            //hpBar.value = 0;
+            hpBar.value = 0;
             //gameOverText.SetActive(true);
         }
 
-        //int myCurScore = ScoreManager.Instance().myScore;
-        //int myBestScore = ScoreManager.Instance().bestScore;
+        int myCurScore = ScoreManager.Instance().mySocre;
+        int myBestScore = ScoreManager.Instance().bestScore;
 
-        //scoreText.text = "MY SCORE : " + myCurScore + "\n" + "BEST SCORE : " + myBestScore;
+        scoreText.text = "MY SCORE : " + myCurScore + "\n" + "BEST SCORE : " + myBestScore;
     }
 
     IEnumerator HurtEffect()
