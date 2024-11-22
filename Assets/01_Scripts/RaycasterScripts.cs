@@ -9,21 +9,29 @@ public class RaycasterScripts : MonoBehaviour
     public GameObject muzzleEffect;
     public TextMeshProUGUI ammoText;
     public GameObject bulletEffect;
+    public AudioClip shotSFX;
 
     public int bulletCnt;
+    float curTime;
+
+    float rpm = 0.15f;
 
     // Start is called before the first frame update
     void Start()
     {
         bulletCnt = 7;
+        curTime = rpm;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch) && bulletCnt > 0)
+        curTime += Time.deltaTime;
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch) && bulletCnt > 0 && curTime >= rpm)
         {
+            curTime = 0;
             Debug.Log("Ray น฿ป็");
+            AudioManager.Instance().PlaySfx(shotSFX);
             Instantiate(muzzleEffect, this.transform.position, this.transform.rotation);
 
             bulletCnt--;
@@ -48,6 +56,7 @@ public class RaycasterScripts : MonoBehaviour
             }
         }
     }
+
 
     public IEnumerator Reroading()
     {

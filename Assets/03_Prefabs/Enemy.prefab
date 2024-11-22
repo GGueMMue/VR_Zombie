@@ -226,11 +226,12 @@ MonoBehaviour:
   attackRange: 2.5
   attackStateMaxTime: 1
   enemyCharacterController: {fileID: 0}
+  playerState: {fileID: 0}
   explosionEffect: {fileID: 0}
   nvAgent: {fileID: 0}
   hp: 5
-  attackSfx: {fileID: 0}
-  deadSfx: {fileID: 0}
+  attackSfx: {fileID: 8300000, guid: 7914ca56e6570440e8561abd7f336bbe, type: 3}
+  deadSfx: {fileID: 8300000, guid: 7cad94a141f034a61a5f046ad5fb4919, type: 3}
 --- !u!195 &2584422302650404011
 NavMeshAgent:
   m_ObjectHideFlags: 0

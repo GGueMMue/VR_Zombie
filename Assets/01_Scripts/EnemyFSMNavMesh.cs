@@ -25,7 +25,7 @@ public class EnemyFSMNavMesh : MonoBehaviour
 
     public float speed = 5f;
     public float rotationSpeed = 10f;
-    public float attackRange = 3.5f;
+    public float attackRange = 2.5f;
     public float attackStateMaxTime = 1f;
 
     public CapsuleCollider enemyCharacterController;
@@ -34,7 +34,7 @@ public class EnemyFSMNavMesh : MonoBehaviour
 
     public NavMeshAgent nvAgent;
 
-    public int hp = 2;
+    public int hp = 5;
     public AudioClip attackSfx;
     public AudioClip deadSfx;
 
@@ -100,7 +100,7 @@ public class EnemyFSMNavMesh : MonoBehaviour
                     // 플레이어 공격!!!!!!!!!!!!!!!!!!!
                     stateTime = 0;
                     //Debug.Log("#### ATTACK ####");
-                    //AudioManager.Instance().PlaySfx(attackSfx);
+                    AudioManager.Instance().PlaySfx(attackSfx);
                     target.GetComponent<PlayerState>().DamageByEnemy();
                 }
 
@@ -144,9 +144,11 @@ public class EnemyFSMNavMesh : MonoBehaviour
 
     IEnumerator DeadProcess(float t)
     {
-        if(isdead == false)
+        if (isdead == false)
+        {
             enemyAnim.SetTrigger("DEAD");
-
+            AudioManager.Instance().PlaySfx(deadSfx);
+        }
         isdead = true;
 
         yield return new WaitForSeconds(t);
@@ -173,7 +175,7 @@ public class EnemyFSMNavMesh : MonoBehaviour
 
     public void Damaged()
     {
-        --hp;
+        hp -= 3;
         if (hp <= 0)
             enemyState = ENEMYSTATE.DEAD;
         else

@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class PlayerState : MonoBehaviour
 {
-    public int hp = 5;
-    //public CameraShake cameraShake;
+    public int hp = 15;
+    public CameraShaker cameraShake;
     public AudioClip hurtSfx;
     public bool isDead = false;
     public GameObject gameOverText;
@@ -18,7 +18,7 @@ public class PlayerState : MonoBehaviour
 
     void Start()
     {
-        //cameraShake = GetComponentInChildren<CameraShake>();
+        cameraShake = GetComponentInChildren<CameraShaker>();
     }
 
     void Update()
@@ -48,6 +48,9 @@ public class PlayerState : MonoBehaviour
     public void DamageByEnemy()
     {
         --hp;
+        cameraShake.PlayCameraShake();
+        AudioManager.Instance().PlaySfx(hurtSfx);
+
         StartCoroutine(HurtEffect());
         if (hp <= 0)
         {
@@ -56,8 +59,5 @@ public class PlayerState : MonoBehaviour
         }
         if (isDead == true) hurtEffect.SetActive(true);
         return;
-
-        //cameraShake.PlayCameraShake();
-        //AudioManager.Instance().PlaySfx(hurtSfx);
     }
 }
