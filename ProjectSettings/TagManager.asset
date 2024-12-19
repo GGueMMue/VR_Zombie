@@ -28,6 +28,7 @@ TagManager:
   - LocoText
   - Enemy
   - Magazine
+  - SnapLocation
   layers:
   - Default
   - TransparentFX

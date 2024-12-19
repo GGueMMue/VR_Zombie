@@ -9,7 +9,7 @@ public class EnemyManager : MonoBehaviour
     public GameObject[] enemyPool;
     public int poolSize = 10;
     public float curTime;
-    public float spawnTime = 2f;
+    public float spawnTime = 4f;
     int spawnCnt = 1;
     public int maxSpawnCnt = 10;
     public PlayerState playerState;

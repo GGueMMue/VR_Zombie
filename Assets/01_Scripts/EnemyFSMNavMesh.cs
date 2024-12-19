@@ -17,6 +17,7 @@ public class EnemyFSMNavMesh : MonoBehaviour
 
     public ENEMYSTATE enemyState;
 
+    public Score_Calculator sc;
     public float stateTime = 0;
     public float idleStateTime = 2;
     public Animator enemyAnim;
@@ -34,13 +35,14 @@ public class EnemyFSMNavMesh : MonoBehaviour
 
     public NavMeshAgent nvAgent;
 
-    public int hp = 5;
+    public int hp = 3;
     public AudioClip attackSfx;
     public AudioClip deadSfx;
 
 
     void Start()
     {
+        sc = GameObject.Find("ScoreManager").GetComponent<Score_Calculator>();
         enemyState = ENEMYSTATE.IDLE;
         target = GameObject.FindWithTag("Player").transform;
         enemyCharacterController = GetComponent<CapsuleCollider>();
@@ -147,6 +149,7 @@ public class EnemyFSMNavMesh : MonoBehaviour
         if (isdead == false)
         {
             enemyAnim.SetTrigger("DEAD");
+            sc.ScorePlus();
             AudioManager.Instance().PlaySfx(deadSfx);
         }
         isdead = true;
@@ -159,6 +162,7 @@ public class EnemyFSMNavMesh : MonoBehaviour
             transform.position = temp;
             yield return new WaitForEndOfFrame();
         }
+
         Destroy(gameObject);
         //InitEnemy();
         //gameObject.SetActive(false);
@@ -175,7 +179,7 @@ public class EnemyFSMNavMesh : MonoBehaviour
 
     public void Damaged()
     {
-        hp -= 3;
+        hp -= 1;
         if (hp <= 0)
             enemyState = ENEMYSTATE.DEAD;
         else

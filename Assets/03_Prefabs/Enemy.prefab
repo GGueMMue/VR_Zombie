@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyState: 0
+  sc: {fileID: 0}
   stateTime: 0
   idleStateTime: 0
   enemyAnim: {fileID: 0}
@@ -229,7 +230,7 @@ MonoBehaviour:
   playerState: {fileID: 0}
   explosionEffect: {fileID: 0}
   nvAgent: {fileID: 0}
-  hp: 5
+  hp: 2
   attackSfx: {fileID: 8300000, guid: 7914ca56e6570440e8561abd7f336bbe, type: 3}
   deadSfx: {fileID: 8300000, guid: 7cad94a141f034a61a5f046ad5fb4919, type: 3}
 --- !u!195 &2584422302650404011

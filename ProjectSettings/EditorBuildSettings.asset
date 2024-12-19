@@ -4,7 +4,13 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/11_GameScene/Main.unity
+    guid: 3d86e2fcd7916cb4eb681ee92e269a5e
+  - enabled: 1
+    path: Assets/11_GameScene/Zombie_VR.unity
+    guid: f2f28c5833d4cd64e902242726284c84
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: d30fa49fa617fcc49957316efa87b4c6, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 2b1744c490238204b822468959b3c390, type: 2}

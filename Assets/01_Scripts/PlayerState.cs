@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerState : MonoBehaviour
 {
-    public int hp = 15;
+    public int hp = 5;
     public CameraShaker cameraShake;
     public AudioClip hurtSfx;
     public bool isDead = false;
@@ -16,6 +16,9 @@ public class PlayerState : MonoBehaviour
 
     public Slider hpBar;
     public TextMeshProUGUI scoreText;
+    public GameObject score_HP_Panel;
+    public GameObject gameoverPanel;
+    public TextMeshProUGUI lastScoreText;
 
     void Start()
     {
@@ -31,13 +34,21 @@ public class PlayerState : MonoBehaviour
         else
         {
             hpBar.value = 0;
+            //Time.timeScale = 0;
+            
+            score_HP_Panel.SetActive(false);
+            lastScoreText.text = scoreText.text;
+            gameoverPanel.SetActive(true);
+            StartCoroutine(LoadMainScene());
+
             //gameOverText.SetActive(true);
         }
+    }
 
-        int myCurScore = ScoreManager.Instance().mySocre;
-        int myBestScore = ScoreManager.Instance().bestScore;
-
-        scoreText.text = "MY SCORE : " + myCurScore + "\n" + "BEST SCORE : " + myBestScore;
+    IEnumerator LoadMainScene()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(0);
     }
 
     IEnumerator HurtEffect()

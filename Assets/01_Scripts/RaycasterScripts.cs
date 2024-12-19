@@ -11,6 +11,8 @@ public class RaycasterScripts : MonoBehaviour
     public GameObject bulletEffect;
     public AudioClip shotSFX;
 
+    public Ins_Magazine Ins_Magazine;
+
     public int bulletCnt;
     float curTime;
 
@@ -62,6 +64,8 @@ public class RaycasterScripts : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         bulletCnt = 7;
+
+        Ins_Magazine.Ins_Magazin();
 
         yield return null;
     }
